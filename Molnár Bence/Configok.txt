@@ -1,9 +1,11 @@
+-----------------------
+IRODA
+-----------------------
+
 ena
 clock set 12:00:00 feb 25 2025
 conf t
 host Iroda_Switch_HR
-security passwords min-length 30
-login block-for 60 attempts 3 within 30
 ena sec class123
 no ip domain-lookup
 line con 0
@@ -20,7 +22,6 @@ exec 5
 exit
 ser pass
 banner motd "Ez egy privat router!"
-exit
 
 ip domain-name Gambling.hu
 crypto key generate rsa
@@ -32,5 +33,97 @@ login local
 transport input ssh
 exit
 copy running-config startup-config
-copy running-config tftp
-tftp szerver ip
+
+
+
+ena
+clock set 12:00:00 feb 25 2025
+conf t
+host Iroda_Switch_RG
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Ez egy privat router!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+copy running-config startup-config
+
+
+ena
+clock set 12:00:00 feb 25 2025
+conf t
+host Iroda_Router
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Ez egy privat router!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+
+int g0/0/0
+no sh
+des ASA_Fele
+ip add 172.16.10.1 255.255.255.0
+exit
+
+int se0/2/1
+no sh
+des ISP_B fele
+ip add 20.20.20.4 255.255.255.0
+exit
+exit
+copy running-config startup-config
+-----------------------
+
+CASINO/HOTEL
+-----------------------
+ena
+clock set 12:00:00 feb 25 2025
+conf t
+-----------------------
+
+BANK
+-----------------------
+ena
+clock set 12:00:00 feb 25 2025
+conf t
+-----------------------
