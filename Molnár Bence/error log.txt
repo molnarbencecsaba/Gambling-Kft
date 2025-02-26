@@ -1,0 +1,2 @@
+ERROR LOG
+2025/02/06 - Dhcp szerver csak Vlan 10-en oszt IP-t
