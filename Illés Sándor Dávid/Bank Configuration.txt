@@ -1,0 +1,211 @@
+
+Switch_bank1
+
+ena
+clock set 12:00:00 feb 26 2025
+conf t
+host Switch_bank1
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+copy running-config startup-config
+
+Switch_bank2
+
+ena
+clock set 12:00:00 feb 26 2025
+conf t
+host Switch_bank2
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+copy running-config startup-config
+
+Switch_bank3
+
+ena
+clock set 12:00:00 feb 26 2025
+conf t
+host Switch_bank3
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+copy running-config startup-config
+
+Bank_Router1
+
+ena
+clock set 12:00:00 feb 25 2025
+conf t
+host Bank_Router1
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+copy running-config startup-config
+
+int g0/0/1
+des VPN fele
+ip add 20.20.20.9 255.255.255.0
+no sh
+exit
+
+int s0/1/0
+des ISP_C fele
+ip add 20.20.20.2 255.255.255.0
+clock rate 4000000
+no sh
+exit
+
+int g0/0/0
+des Switch_bank1 fele
+ip add 192.168.10.1 255.255.255.0
+no sh
+exit
+
+Bank_Router2
+
+ena
+clock set 12:00:00 feb 25 2025
+conf t
+host Bank_Router2
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+copy running-config startup-config
+
+int s0/2/0
+des ISP_B fele
+ip add 20.20.20.3 255.255.255.0
+clock rate 4000000
+no sh
+exit
+
+int g0/0/0
+des Switch_bank2 fele
+ip add 192.168.10.2 255.255.255.0
+no sh
+exit
+
+
+
+
