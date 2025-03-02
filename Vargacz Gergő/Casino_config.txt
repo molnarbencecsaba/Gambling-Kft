@@ -1,0 +1,101 @@
+Switch_Casino
+
+ena
+clock set 12:00:00 mar 2 2025
+conf t
+host Switch_Casino
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+copy running-config startup-config
+
+
+
+Router_Casino
+
+ena
+clock set 12:00:00 mar 2 2025
+conf t
+host Router_Casino
+ena sec class123
+no ip domain-lookup
+line con 0
+pass cisco123
+login
+logg syn
+exec 5
+exit
+line vty 0 15
+pass cisco123
+login
+logg syn
+exec 5
+exit
+ser pass
+banner motd "Privat!"
+
+ip domain-name Gambling.hu
+crypto key generate rsa
+2048
+username Admin priv 15 secret cisco123
+ip ssh version 2
+line vty 0 15
+login local
+transport input ssh
+exit
+exit
+
+conf t
+ipv6 uni
+int g0/0/0
+des Cas_Tuzfal fele
+ipv6 enable
+ipv6 add 2001:CAFE:ABBA:C::6/64
+no sh
+exit
+
+int g0/0/2
+des WLC fele
+ipv6 add 2001:CAFE:ABBA:A::6/64
+no sh
+exit
+
+int g0/0/1
+des VPN fele
+ip add 20.20.20.8 255.255.255.0
+no sh
+exit
+
+int s0/2/0
+des ISP_A fele
+ip add 20.20.30.1 255.255.255.0
+no sh
+exit
+
+copy running-config startup-config
+
+
