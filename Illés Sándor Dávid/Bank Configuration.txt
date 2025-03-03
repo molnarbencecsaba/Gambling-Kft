@@ -34,6 +34,26 @@ exit
 exit
 copy running-config startup-config
 
+int rang f0/1-2
+channel-group 1 mode act
+no sh
+exit
+
+int rang f0/3-4
+channel-group 2 mode act
+no sh
+exit
+
+ip dhcp exc 192.168.10.25 192.168.10.30
+ip dhcp pool Bank_pool
+network 192.168.10.25 255.255.255.0
+def 192.168.10.2
+exit
+
+spanning-tree mod rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+
 Switch_bank2
 
 ena
@@ -69,6 +89,20 @@ exit
 exit
 copy running-config startup-config
 
+int rang f0/1-2
+channel-group 1 mode act
+no sh
+exit
+
+int rang f0/3-4
+channel-group 2 mode pass
+no sh
+exit
+
+spanning-tree mod rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+
 Switch_bank3
 
 ena
@@ -103,6 +137,20 @@ transport input ssh
 exit
 exit
 copy running-config startup-config
+
+int rang f0/1-2
+channel-group 1 mode pass
+no sh
+exit
+
+int rang f0/3-4
+channel-group 2 mode pass
+no sh
+exit
+
+spanning-tree mod rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
 
 Bank_Router1
 
