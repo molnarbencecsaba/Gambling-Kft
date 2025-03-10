@@ -44,10 +44,10 @@ channel-group 2 mode act
 no sh
 exit
 
-ip dhcp exc 192.168.10.25 192.168.10.30
-ip dhcp pool Bank_pool
-network 192.168.10.25 255.255.255.0
-def 192.168.10.2
+int range f0/1-4
+swit mode trunk
+swit trunk allo vlan 10,20,30
+swit trunk nat vlan 100
 exit
 
 spanning-tree mod rapid-pvst
@@ -99,6 +99,12 @@ channel-group 2 mode pass
 no sh
 exit
 
+int range f0/1-4
+swit mode trunk
+swit trunk allo vlan 10,20,30
+swit trunk nat vlan 100
+exit
+
 spanning-tree mod rapid-pvst
 spanning-tree portfast default
 spanning-tree portfast bpduguard default
@@ -146,6 +152,12 @@ exit
 int rang f0/3-4
 channel-group 2 mode pass
 no sh
+exit
+
+int range f0/1-4
+swit mode trunk
+swit trunk allo vlan 10,20,30
+swit trunk nat vlan 100
 exit
 
 spanning-tree mod rapid-pvst
@@ -264,5 +276,10 @@ int g0/0/0
 standby ver 2
 standby 1 ip 192.168.10.50
 
-
+ip dhcp exc 192.168.10.0 192.168.10.15
+ip dhcp pool Bank_pool
+network 192.168.10.0 255.255.255.0
+dns 192.168.10.110
+def 192.168.10.2
+exit
 
