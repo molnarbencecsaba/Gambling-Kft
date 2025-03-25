@@ -249,6 +249,13 @@ des ASA_Fele
 ip add 172.16.10.1 255.255.255.0
 exit
 
+int g0/0/2
+no sh
+des Iroda_Server fele
+ip add 172.16.50.1 255.255.255.0
+exit
+
+
 int se0/2/1
 no sh
 des ISP_B fele
