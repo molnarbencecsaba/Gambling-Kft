@@ -1,0 +1,147 @@
+ISP_A
+
+ena
+clock set 12:00:00 30 mar 2025
+conf t
+host ISP_A
+ena sec cisco123
+no ip domain-l
+banner motd 'Private Router!!'
+
+int s0/2/0
+ip add 30.30.30.13 255.255.255.0
+des Router_Casino fele
+no sh
+exit
+
+int s0/2/1
+ip add 30.30.20.10 255.255.255.0
+des ISP_C fele
+no sh
+exit
+
+int s0/1/0
+ip add 30.30.10.5 255.255.255.0
+clock rate 4000000
+des ISP_B fele
+no sh
+exit
+
+ISP_C
+
+ena
+clock set 12:00:00 30 mar 2025
+conf t
+host ISP_C
+ena sec cisco123
+no ip domain-l
+banner motd 'Private Router!!'
+
+int s0/1/1
+ip add 30.30.30.20 255.255.255.0
+des ISP_B fele
+no sh
+exit
+
+int s0/2/1
+ip add 30.30.20.6 255.255.255.0
+clock rate 4000000
+des ISP_A fele
+no sh
+exit
+
+int s0/1/0
+ip add 30.30.10.12 255.255.255.0
+des Bank_Router1 fele
+no sh
+exit
+
+ISP_B
+
+ena
+clock set 12:00:00 30 mar 2025
+conf t
+host ISP_B
+ena sec cisco123
+no ip domain-l
+banner motd 'Private Router!!'
+
+int s0/1/1
+ip add 30.30.30.15 255.255.255.0
+clock rate 4000000
+des ISP_B fele
+no sh
+exit
+
+int s0/2/1
+ip add 30.30.20.1 255.255.255.0
+des Iroda_router fele
+no sh
+exit
+
+int s0/1/0
+ip add 30.30.10.16 255.255.255.0
+des ISP_A fele
+no sh
+exit
+
+int s0/2/0
+ip add 30.30.5.11 255.255.255.0
+des Bank_Router2 fele
+no sh
+exit
+
+Router_Casino
+
+conf t
+
+crypto isakmp policy 10
+encryption aes 
+hash MD5
+authentication pre-share
+group 5
+lifetime 86400
+exit
+
+crypto isakmp key VPN_KEY address 20.20.20.2
+crypto ipsec transform-set VPN_SET esp-aes esp-md5-hmac
+
+crypto map VPN_MAP 10 ipsec-isakmp
+set peer 20.20.20.2
+set transform-set VPN_SET
+match address VPN_TRAFFIC
+
+access-list 100 permit ip 20.20.20.8 0.0.0.255 20.20.20.2 0.0.0.255
+
+interface Serial0/2/0
+crypto map VPN_MAP
+
+exit
+
+
+Bank_router
+
+conf t
+
+crypto isakmp policy 10
+encryption aes 
+hash MD5
+authentication pre-share
+group 5
+lifetime 86400
+exit
+
+crypto isakmp key VPN_KEY address 20.20.20.8
+crypto ipsec transform-set VPN_SET esp-aes esp-md5-hmac
+
+crypto map VPN_MAP 10 ipsec-isakmp
+set peer 20.20.20.8
+set transform-set VPN_SET
+match address VPN_TRAFFIC
+
+access-list 100 permit ip 20.20.20.2 0.0.0.255 20.20.20.8 0.0.0.255
+
+interface Serial0/1/0
+crypto map VPN_MAP
+
+exit
