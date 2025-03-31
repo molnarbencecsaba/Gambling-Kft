@@ -243,12 +243,6 @@ line vty 0 15
 login local
 transport input ssh
 
-int g0/0/0
-no sh
-des ASA_Fele
-ip add 172.16.10.1 255.255.255.0
-exit
-
 int g0/0/2
 no sh
 des Iroda_Server fele
@@ -263,3 +257,51 @@ ip add 20.20.20.4 255.255.255.0
 exit
 exit
 copy running-config startup-config
+
+int G0/0/0.10
+ encapsulation dot1Q 10
+ ip address 172.16.10.1 255.255.255.0
+ ip helper-address 172.16.50.100
+int g0/0/0.20
+ enc dot 20
+ ip address 172.16.20.1 255.255.255.0
+ ip helper-address 172.16.50.100
+int G0/0/0.30
+ encapsulation dot 30
+ ip address 172.16.30.1 255.255.255.0
+ ip helper-address 172.16.50.100
+interface G0/0/0.40
+ encapsulation dot 40
+ ip address 172.16.40.1 255.255.255.0
+ ip helper-address 172.16.50.100
+
+ip nat inside source static 172.16.50.100 209.165.16.30
+
+int se0/2/1
+ip nat outside
+
+int g0/0/0
+ip nat inside		
+
+router ospf 1
+router-id 1.1.1.1
+network 172.16.10.0 0.0.0.255 area 1
+network 172.16.20.0 0.0.0.255 area 1
+network 172.16.30.0 0.0.0.255 area 1
+network 172.16.40.0 0.0.0.255 area 1
+network 172.16.50.0 0.0.0.255 area 1
+network 20.20.20.0 0.0.0.255 area 0
+exit
+
+-----------------------
+ISP_B ospf
+-----------------------
+router ospf 1
+router-id 2.2.2.2
+network 30.30.10.0 0.0.0.255 area 0
+network 30.30.30.0 0.0.0.255 area 0
+network 30.30.20.0 0.0.0.255 area 0
+network 20.20.20.0 0.0.0.255 area 0
+exit
+
+
