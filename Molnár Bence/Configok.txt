@@ -283,59 +283,81 @@ ip nat outside
 int g0/0/0
 ip nat inside		
 
-router ospf 1
-router-id 1.1.1.1
-network 172.16.10.0 0.0.0.255 area 1
-network 172.16.20.0 0.0.0.255 area 1
-network 172.16.30.0 0.0.0.255 area 1
-network 172.16.40.0 0.0.0.255 area 1
-network 172.16.50.0 0.0.0.255 area 1
-network 20.20.20.0 0.0.0.255 area 0
+-----------------------
+Iroda_Router eigrp
+-----------------------
+router eigrp 10
+eigrp router-id 1.1.1.1
+network 172.16.10.0 0.0.0.255
+network 172.16.20.0 0.0.0.255
+network 172.16.30.0 0.0.0.255
+network 172.16.40.0 0.0.0.255
+network 172.16.50.0 0.0.0.255
+network 20.20.10.0 0.0.0.255
+no auto
 exit
 
 -----------------------
-ISP_B ospf
+ISP_B eigrp
 -----------------------
-router ospf 1
-router-id 2.2.2.2
-network 30.30.10.0 0.0.0.255 area 0
-network 30.30.30.0 0.0.0.255 area 0
-network 30.30.20.0 0.0.0.255 area 0
-network 20.20.20.0 0.0.0.255 area 0
+router eigrp 10
+eigrp router-id 2.2.2.2
+network 30.30.10.0 0.0.0.255
+network 30.30.30.0 0.0.0.255
+network 20.20.10.0 0.0.0.255
+network 20.20.20.0 0.0.0.255
+no auto
+exit
+
+-----------------------
+ISP_A eigrp
+-----------------------
+router eigrp 10
+eigrp router-id 3.3.3.3
+network 20.20.40.0 0.0.0.255
+network 30.30.10.0 0.0.0.255
+network 30.30.20.0 0.0.0.255
+no auto
 exit
 
 
-router ospf 1
-router-id 3.3.3.3
-network 20.20.20.0 0.0.0.255 area 0
-network 30.30.10.0 0.0.0.255 area 0
-network 30.30.20 0.0.0.255 area 0
+-----------------------
+Router_Casino eigrp
+-----------------------
+router eigrp 10
+eigrp router-id 4.4.4.4
+network 20.20.40.0 0.0.0.255
 exit
 
-router ospf 1
-router-id 4.4.4.4
-network 20.20.20.0 0.0.0.255 area 0
-exit
-
-
-router ospf 1
-router-id 5.5.5.5
-network 20.20.20.0 0.0.0.255 area 0
-network 30.30.30.0 0.0.0.255 area 0
-network 30.30.20.0 0.0.0.255 area 0
-exit
-
-router ospf 1
-router-id 6.6.6.6
-network 20.20.20.0 0.0.0.255 area 0
-network 20.20.30.0 0.0.0.255 area 0
-network 192.168.10.0 0.0.0.255 area 0
+-----------------------
+ISP_C eigrp
+-----------------------
+router eigrp 10
+eigrp router-id 5.5.5.5
+network 20.20.20.0 0.0.0.255
+network 30.30.30.0 0.0.0.255
+network 30.30.20.0 0.0.0.255
 exit
 
 
-
-router ospf 1
-router-id 7.7.7.7
-network 192.168.10.2 0.0.0.255 area 0
-network 20.20.20.0 0.0.0.255 area 0
+-----------------------
+Bank_Router 1 eigrp
+-----------------------
+router eigrp 10
+eigrp router-id 6.6.6.6
+network 20.20.20.0 0.0.0.255
+network 192.168.10.0 0.0.0.255
+no auto
 exit
+
+
+-----------------------
+Bank_Router 2 eigrp
+-----------------------
+router eigrp 10
+eigrp router-id 7.7.7.7
+network 192.168.10.0 0.0.0.255
+network 20.20.20.0 0.0.0.255
+no auto
+exit
+
