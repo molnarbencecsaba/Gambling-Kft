@@ -72,10 +72,13 @@ exit
 conf t
 ipv6 uni
 int g0/0/0
-des Cas_Tuzfal fele
-ipv6 enable
-ipv6 add 2001:CAFE:ABBA:C::6/64
 no sh
+ip add 172.16.80.1 255.255.255.0
+des Switch_Casino fele
+exit
+
+router eigrp 10
+net 172.16.80.0 255.255.255.0
 exit
 
 int g0/0/2
