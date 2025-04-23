@@ -393,3 +393,53 @@ enc ppp
 
 int se0/2/1
 enc ppp
+
+-----------------------------
+int g1/1
+nameif OUTSIDE
+security level 0
+ip add 192.13.32.2 255.255.255.252
+e
+
+int g1/2
+nameif INSIDE
+ip add 172.16.80.1 255.255.255.0
+security level 100
+e
+
+Dinamic NAT
+object network inside-net
+subnet 172.16.80.0 255.255.255.0
+nat (inside,outside) dynamic interface
+
+route outside 0.0.0.0 0.0.0.0 192.13.32.1
+
+class-map megfigyelo
+match default-insp-traffic
+exi
+policy-map gambling
+class megfigyelo
+inspect dns
+inspect http
+inspect icmp
+e
+
+service-policy gambling int outside
+
+-------------------------------
+Router_Casino
+int g0/0/0
+ip add 192.13.32.1 255.255.255.252
+ex
+
+
+-------------------------------
+Switch_Bank2
+int range fa0/5-7
+swit mode acc
+swit port-security
+swit port-security mac-address sticky
+swit prot-security maximum 1
+switchport port-security violation restrict
+
+
