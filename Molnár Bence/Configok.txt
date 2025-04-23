@@ -361,3 +361,35 @@ network 20.20.20.0 0.0.0.255
 no auto
 exit
 
+
+
+------------------------
+ISP_A ppp
+-----------------
+int se0/1/0
+enc ppp
+
+int se0/2/1
+enc ppp
+
+
+
+------------------------
+ISP_B ppp
+-----------------
+int se0/1/1
+enc ppp
+
+int se0/1/0
+enc ppp
+
+
+
+------------------------
+ISP_C ppp
+-----------------
+int se0/1/1
+enc ppp
+
+int se0/2/1
+enc ppp
